@@ -52,6 +52,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
+
+                // Initialize the MemeApp
                 MemeApp()
             }
         }
@@ -64,11 +66,16 @@ fun MemeItems(
     modifier: Modifier = Modifier
 ){
 
+    // use remember to keep track of the state of the button
     var expanded by remember { mutableStateOf(false) }
+
+ // This is our card together withs its column, animation, and material components.
     Card(
         modifier = modifier
 
     ){
+
+                // This is the column that will hold the meme heroes
         Column(
             modifier = Modifier
                 .animateContentSize(
@@ -78,15 +85,24 @@ fun MemeItems(
                     )
                 )
         ){
+
+                        // This is the row that will hold the meme heroes
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(dimensionResource(R.dimen.padding_small))
             ){
 
+                // This is the meme icons
                 MemeIcons(memeHeroes.imageResourceId)
+
+                // This is the meme description
                 MemeDescription(memeHeroes.name , memeHeroes.description)
+
+                // This is the meme button
                 Spacer(modifier = Modifier.weight(1f))
+
+                // This is the meme button
                 MemeButton(
                     expanded = expanded,
                     onClick = { expanded = !expanded }
@@ -103,10 +119,12 @@ fun MemeButton( expanded: Boolean,
                 onClick: () -> Unit,
                 modifier: Modifier = Modifier) {
 
+    // This is the button that will expand the meme heroes
     IconButton(
         onClick = onClick,
         modifier = modifier
     ){
+        // This is the icon that will be displayed
         Icon(
             imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
             contentDescription = stringResource(R.string.expand_button_content_description),
@@ -148,6 +166,8 @@ fun MemeIcons(
     @DrawableRes image: Int,
     modifier: Modifier = Modifier
 ) {
+
+    // This is for our icons and material component
     Image(
         painter = painterResource(image),
         contentDescription = null,
@@ -164,6 +184,8 @@ fun MemeIcons(
 @Composable
 fun MemeTopBar(modifier: Modifier = Modifier) {
     CenterAlignedTopAppBar(
+
+                // This is the title of the app
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -194,12 +216,22 @@ fun MemeTopBar(modifier: Modifier = Modifier) {
 @Composable
 fun MemeApp(){
     Scaffold(
+
+        // This is our topbar
         topBar = {
+
+            // Call the meme top bar
             MemeTopBar()
         }
     ) { it ->
+
+        // Use Lazy Column to display the meme heroes
         LazyColumn(contentPadding = it) {
+
+            // Display all the meme heroes
             items(memeHeroes) {
+
+                // call the Meme items composable
                 MemeItems(
                     memeHeroes = it,
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
