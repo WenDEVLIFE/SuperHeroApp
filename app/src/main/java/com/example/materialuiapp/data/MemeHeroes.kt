@@ -5,11 +5,13 @@ import androidx.annotation.StringRes
 import com.example.materialuiapp.R
 
 data class MemeHeroes(
- @DrawableRes val image: Int,
+ @DrawableRes val imageResourceId: Int,
     @StringRes val name: Int,
     @StringRes val description: Int
 )
 
+
+// This are the list of meme heroes
 val memeHeroes = listOf(
     MemeHeroes(R.drawable.victor, R.string.hero1, R.string.description1),
     MemeHeroes(R.drawable.cardo, R.string.hero2, R.string.description2),
